@@ -30,7 +30,7 @@ class MyTCPHandler(SocketServer.StreamRequestHandler):
         self.wfile.write(self.data.upper())
 
 if __name__ == "__main__":
-    HOST, PORT = "localhost", 9999
+    HOST, PORT = "129.31.227.59", 9999
 
     # Create the server, binding to localhost on port 9999
     server = SocketServer.TCPServer((HOST, PORT), MyTCPHandler)
