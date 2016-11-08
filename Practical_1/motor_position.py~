@@ -41,8 +41,7 @@ while True:
 			print "Motor angles: ", motorAngles[0][0], ", ", motorAngles[1][0]
 		time.sleep(0.1)
 
-	interface.stopLogging()
 	print "Destination reached!"
 
-
+interface.stopLogging()
 interface.terminate()
