@@ -91,7 +91,6 @@ while True:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((nb_ip, int(nb_port)))
     sock.listen(1)
-
     conn, addr = sock.accept()
     while 1:
         data = conn.recv(1024)
@@ -99,4 +98,10 @@ while True:
         conn.send(data)  # echo
     print "LogFile received!"
     conn.close()
-    # command has arrived!
+    # LogFile has arrived!
+
+    Data = numpy.loadtxt("LogFile.txt")
+    matplotlib.pyplot.clf()
+    matplotlib.pyplot.plot(Data[:, 0], Data[:, 1], 'r')
+    matplotlib.pyplot.plot(Data[:, 0], Data[:, 2], 'b')
+    matplotlib.pyplot.show()
