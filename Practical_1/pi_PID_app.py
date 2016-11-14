@@ -55,7 +55,7 @@ interface.setMotorAngleControllerParameters(motors[0],motorParams)
 interface.setMotorAngleControllerParameters(motors[1],motorParams)
 
 while True:
-    # wait until command arrives
+    # wait until motor command arrives
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((pi_ip, int(pi_port)))
     sock.listen(1)
@@ -64,6 +64,8 @@ while True:
     while 1:
         data = conn.recv(BUFFER_SIZE)
         if not data: break
+        conn.send(data)  # echo
+    conn.close()
     # command has arrived!
 
     interface.startLogging("LogFile.txt")
@@ -77,13 +79,21 @@ while True:
 
     interface.stopLogging()
 
-    conn.send(data)  # echo
-    conn.close()
-
     scp = pexpect.spawn('scp LogFile.txt ' + nb_usr + '@' + nb_ip + ':' + nb_repo + cwd.replace(pi_repo,'') + '/LogFile.txt')
     scp.expect(nb_usr + '@' + nb_ip + "'s password: ")
     scp.sendline(nb_pass)
-    print "LogFile Sent!"
 
+    # send LogFile Complete signal #
+    packet = 1
+    # Create a socket (SOCK_STREAM means a TCP socket)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Connect to server and send data
+    sock.connect((pi_ip, int(pi_port)))
+    sock.sendall(packet)
+    print "sending LogFile"
+    # Receive data from the server and shut down
+    received = sock.recv(1024)
+    print "LogFile Sent!"
+    sock.close()
 
 interface.terminate()

@@ -80,10 +80,23 @@ while True:
     # Connect to server and send data
     sock.connect((pi_ip, int(pi_port)))
     sock.sendall(packet)
-    print "performing motor command"
+    print "sending motor command"
     # Receive data from the server and shut down
     received = sock.recv(1024)
-    print "received LogFile"
+    print "motor command received"
     sock.close()
 
     # wait for LogFile-Complete signal #
+    print "waiting for Logfile"
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((pi_ip, int(pi_port)))
+    sock.listen(1)
+
+    conn, addr = sock.accept()
+    while 1:
+        data = conn.recv(BUFFER_SIZE)
+        if not data: break
+        conn.send(data)  # echo
+    print "LogFile received!"
+    conn.close()
+    # command has arrived!
