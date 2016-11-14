@@ -1,9 +1,27 @@
 import brickpi # brickpi module
 import time # time module
-import os # os module
+import socket
 
 # INITIALISATION #
 #----------------#
+
+# read recently scp'ed default file #
+with open('default_inputs.txt') as f:
+    default_inputs = [x.strip('\n') for x in f.readlines()]
+
+pi_repo = default_inputs[0]
+pi_usr = default_inputs[1]
+pi_ip = default_inputs[2]
+pi_port = default_inputs[3]
+
+nb_repo = default_inputs[4]
+nb_usr = default_inputs[5]
+nb_nw_if = default_inputs[6]
+nb_ip = default_inputs[7]
+nb_port = default_inputs[8]
+
+# tcp connection
+BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
 
 # initialise interface
 interface=brickpi.Interface()
@@ -31,10 +49,21 @@ interface.setMotorAngleControllerParameters(motors[0],motorParams)
 interface.setMotorAngleControllerParameters(motors[1],motorParams)
 
 while True:
-	angle = float(input("Enter a angle to rotate (in radians): "))
+    # wait until command arrives
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((pi_ip, pi_port))
+    sock.listen(1)
+
+    conn, addr = sock.accept()
+    while 1:
+        data = conn.recv(BUFFER_SIZE)
+        if not data: break
+        conn.send(data)  # echo
+    conn.close()
+    # command has arrived!
 
 	interface.startLogging("LogFile.txt")
-	interface.increaseMotorAngleReferences(motors,[angle,angle])
+	interface.increaseMotorAngleReferences(motors,[10,10])
 
 	while not interface.motorAngleReferencesReached(motors) :
 		motorAngles = interface.getMotorAngles(motors)
@@ -44,7 +73,8 @@ while True:
 
 	interface.stopLogging()
 
-	os.system("scp LogFile.txt djl11@129.31.228.215:/home/djl11/Documents/BrickBot_Repo/BrickBot/Practical_1/LogFile.txt")
+
+	#os.system("scp LogFile.txt djl11@129.31.228.215:/home/djl11/Documents/BrickBot_Repo/BrickBot/Practical_1/LogFile.txt")
 
 	print "Destination reached!"
 

@@ -1,0 +1,5 @@
+129.31.209.64
+pi
+Notnel11
+/home/djl11/Documents/BrickBot_Repo
+/home/pi/BrickPi
