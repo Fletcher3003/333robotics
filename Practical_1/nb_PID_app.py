@@ -94,7 +94,7 @@ while True:
 
     conn, addr = sock.accept()
     while 1:
-        data = conn.recv(BUFFER_SIZE)
+        data = conn.recv(1024)
         if not data: break
         conn.send(data)  # echo
     print "LogFile received!"

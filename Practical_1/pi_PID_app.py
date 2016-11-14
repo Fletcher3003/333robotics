@@ -84,7 +84,7 @@ while True:
     scp.sendline(nb_pass)
 
     # send LogFile Complete signal #
-    packet = 1
+    packet = 'LogFile notice'
     # Create a socket (SOCK_STREAM means a TCP socket)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Connect to server and send data
