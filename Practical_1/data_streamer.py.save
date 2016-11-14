@@ -10,6 +10,7 @@ import sys
 HOST, PORT = "129.31.227.59", 9999
 
 # Create a socket (SOCK_STREAM means a TCP socket)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #try:
     # Connect to server and send data
@@ -41,23 +42,18 @@ interface.setMotorAngleControllerParameters(motors[1],motorParams)
 
 while True:
 	angle = float(input("Enter a angle to rotate (in radians): "))
+   	sock.connect((HOST, PORT))
 	interface.startLogging("LogFile.txt")
-	#f = open('LogFile.txt', 'r')
+	f = open('LogFile.txt', 'r')
 	interface.increaseMotorAngleReferences(motors,[angle,angle])
 
 	while not interface.motorAngleReferencesReached(motors) :
-
-		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-   		sock.connect((HOST, PORT))
-		sock.sendall("Hey")
-		#received = sock.recv(1024)
-		sock.close()
-
 		motorAngles = interface.getMotorAngles(motors)
-
-
+		sock.sendall(f.readline() + "\n"
+)
 		if motorAngles :
 			print "Motor angles: ", motorAngles[0][0], ", ", motorAngles[1][0]
+
 		time.sleep(0.1)
 
 	interface.stopLogging()
@@ -65,3 +61,4 @@ while True:
 
 
 interface.terminate()
+sock.close()

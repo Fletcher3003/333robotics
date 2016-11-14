@@ -51,7 +51,7 @@ interface.setMotorAngleControllerParameters(motors[1],motorParams)
 while True:
     # wait until command arrives
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((pi_ip, pi_port))
+    sock.bind((pi_ip, int(pi_port)))
     sock.listen(1)
 
     conn, addr = sock.accept()
@@ -62,21 +62,21 @@ while True:
     conn.close()
     # command has arrived!
 
-	interface.startLogging("LogFile.txt")
-	interface.increaseMotorAngleReferences(motors,[10,10])
+    interface.startLogging("LogFile.txt")
+    interface.increaseMotorAngleReferences(motors,[10,10])
 
-	while not interface.motorAngleReferencesReached(motors) :
-		motorAngles = interface.getMotorAngles(motors)
-		if motorAngles :
-			print "Motor angles: ", motorAngles[0][0], ", ", motorAngles[1][0]
-		time.sleep(0.1)
+    while not interface.motorAngleReferencesReached(motors) :
+	motorAngles = interface.getMotorAngles(motors)
+	if motorAngles :
+		print "Motor angles: ", motorAngles[0][0], ", ", motorAngles[1][0]
+	time.sleep(0.1)
 
-	interface.stopLogging()
+    interface.stopLogging()
 
 
 	#os.system("scp LogFile.txt djl11@129.31.228.215:/home/djl11/Documents/BrickBot_Repo/BrickBot/Practical_1/LogFile.txt")
 
-	print "Destination reached!"
+    print "Destination reached!"
 
 
 interface.terminate()
