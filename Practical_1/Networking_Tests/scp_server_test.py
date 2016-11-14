@@ -9,6 +9,8 @@ import socket
 with open('default_inputs.txt') as f:
     default_inputs = [x.strip('\n') for x in f.readlines()]
 
+cwd = os.getcwd()
+
 pi_repo = default_inputs[0]
 pi_usr = default_inputs[1]
 pi_ip = default_inputs[2]
@@ -73,10 +75,8 @@ while True:
 
     interface.stopLogging()
 
-
-	#os.system("scp LogFile.txt djl11@129.31.228.215:/home/djl11/Documents/BrickBot_Repo/BrickBot/Practical_1/LogFile.txt")
-
-    print "Destination reached!"
+    os.system('scp LogFile.txt ' + nb_usr + '@' + nb_ip + ':' + nb_repo + cwd.replace(pi_repo,'') + '/LogFile.txt')
+    print "LogFile Sent!"
 
 
 interface.terminate()

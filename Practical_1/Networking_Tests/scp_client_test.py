@@ -51,28 +51,20 @@ f.close()
 print('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + '/default_inputs.txt')
 
 # scp updates over to pi default file
+print("updating default parameters on the pi...")
 os.system('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + '/default_inputs.txt')
-print("b")
-print("start pi PID application now")
-print("updating default data on pi...")
-packet = 'scp performed'
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((pi_ip, int(pi_port)))
-sock.sendall(packet)
-received = sock.recv(1024)
-sock.close()
 print("update complete")
-
+dummy = raw_input("start pi PID application now, then AFTER it has started, press enter")
 
 # send commands for robot to move
-while true:
-    packet = raw_input('Press enter to send another motor command: ') or ''
+while True:
+    packet = raw_input('Press enter to send another motor command: ') or 'motor_command'
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Connect to server and send data
-    sock.connect((pi_ip, pi_port))
+    sock.connect((pi_ip, int(pi_port)))
     sock.sendall(packet)
 
     # Receive data from the server and shut down
