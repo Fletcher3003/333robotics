@@ -1,6 +1,7 @@
 import brickpi # brickpi module
 import time # time module
 import socket
+import os
 
 # INITIALISATION #
 #----------------#
