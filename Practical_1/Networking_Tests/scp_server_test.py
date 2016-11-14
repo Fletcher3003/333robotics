@@ -1,7 +1,11 @@
 import brickpi # brickpi module
 import time # time module
 import socket
+<<<<<<< HEAD
 import os
+=======
+import pexpect
+>>>>>>> bac401d30062b05bd7b735dce613d062ce432539
 
 # INITIALISATION #
 #----------------#
@@ -78,7 +82,9 @@ while True:
 
     interface.stopLogging()
 
-    os.system('scp LogFile.txt ' + nb_usr + '@' + nb_ip + ':' + nb_repo + cwd.replace(pi_repo,'') + '/LogFile.txt')
+    scp = pexpect.spawn('scp LogFile.txt ' + nb_usr + '@' + nb_ip + ':' + nb_repo + cwd.replace(pi_repo,'') + '/LogFile.txt')
+    scp.expect(nb_usr + '@' + nb_ip + "'s password: ")
+    scp.sendline(nb_pass)
     print "LogFile Sent!"
 
 
