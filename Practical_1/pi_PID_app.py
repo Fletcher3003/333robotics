@@ -64,8 +64,6 @@ while True:
     while 1:
         data = conn.recv(BUFFER_SIZE)
         if not data: break
-        conn.send(data)  # echo
-    conn.close()
     # command has arrived!
 
     interface.startLogging("LogFile.txt")
@@ -78,6 +76,9 @@ while True:
 	time.sleep(0.1)
 
     interface.stopLogging()
+
+    conn.send(data)  # echo
+    conn.close()
 
     scp = pexpect.spawn('scp LogFile.txt ' + nb_usr + '@' + nb_ip + ':' + nb_repo + cwd.replace(pi_repo,'') + '/LogFile.txt')
     scp.expect(nb_usr + '@' + nb_ip + "'s password: ")

@@ -6,6 +6,9 @@ from paramiko import SSHClient
 from scp import SCPClient
 import getpass
 import pexpect
+import matplotlib.pyplot
+import numpy
+
 
 # read local nb default file #
 with open('default_inputs.txt', 'r') as f:
@@ -69,17 +72,18 @@ dummy = raw_input("start pi PID application now, then AFTER it has started, pres
 
 # send commands for robot to move
 while True:
-    packet = raw_input('Press enter to send another motor command: ') or 'motor_command'
 
+    # send motor command signal #
+    packet = raw_input('Press enter to send another motor command: ') or 'motor_command'
     # Create a socket (SOCK_STREAM means a TCP socket)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
     # Connect to server and send data
     sock.connect((pi_ip, int(pi_port)))
     sock.sendall(packet)
-
+    print "performing motor command"
     # Receive data from the server and shut down
     received = sock.recv(1024)
-
+    print "received LogFile"
     sock.close()
-    print "performing motor command"
+
+    # wait for LogFile-Complete signal #
