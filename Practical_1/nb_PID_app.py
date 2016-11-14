@@ -89,7 +89,7 @@ while True:
     # wait for LogFile-Complete signal #
     print "waiting for Logfile"
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((pi_ip, int(pi_port)))
+    sock.bind((nb_ip, int(nb_port)))
     sock.listen(1)
 
     conn, addr = sock.accept()

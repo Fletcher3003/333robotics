@@ -88,7 +88,7 @@ while True:
     # Create a socket (SOCK_STREAM means a TCP socket)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Connect to server and send data
-    sock.connect((pi_ip, int(pi_port)))
+    sock.connect((nb_ip, int(nb_port)))
     sock.sendall(packet)
     print "sending LogFile"
     # Receive data from the server and shut down
