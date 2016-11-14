@@ -13,14 +13,16 @@ cwd = os.getcwd()
 
 pi_repo = default_inputs[0]
 pi_usr = default_inputs[1]
-pi_ip = default_inputs[2]
-pi_port = default_inputs[3]
+pi_pass = default_inputs[2]
+pi_ip = default_inputs[3]
+pi_port = default_inputs[4]
 
-nb_repo = default_inputs[4]
-nb_usr = default_inputs[5]
-nb_nw_if = default_inputs[6]
-nb_ip = default_inputs[7]
-nb_port = default_inputs[8]
+nb_repo = default_inputs[5]
+nb_usr = default_inputs[6]
+nb_pass = default_inputs[7]
+nb_nw_if = default_inputs[8]
+nb_ip = default_inputs[9]
+nb_port = default_inputs[10]
 
 # tcp connection
 BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
