@@ -1,11 +1,8 @@
 import brickpi # brickpi module
 import time # time module
 import socket
-<<<<<<< HEAD
 import os
-=======
 import pexpect
->>>>>>> bac401d30062b05bd7b735dce613d062ce432539
 
 # INITIALISATION #
 #----------------#
