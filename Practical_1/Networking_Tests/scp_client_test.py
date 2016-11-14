@@ -62,9 +62,8 @@ f.close()
 # scp updates over to pi default file
 print("updating default parameters on the pi...")
 scp = pexpect.spawn('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + '/default_inputs.txt')
-#os.system('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + '/default_inputs.txt')
 scp.expect (pi_usr + '@' + pi_ip + "'s password: ")
-scp.sendline (nb_pass)
+scp.sendline (pi_pass)
 print("update complete")
 dummy = raw_input("start pi PID application now, then AFTER it has started, press enter")
 
