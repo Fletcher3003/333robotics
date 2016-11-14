@@ -1,6 +1,9 @@
 /home/pi/BrickPi
 pi
 129.31.209.64
+9999
 /home/djl11/Documents/BrickBot_Repo/BrickBot
 djl11
+wlp6s0
 129.31.230.10
+9999

@@ -1,7 +1,9 @@
 import os
+import netifaces
+import socket
 
 # read local nb default file #
-with open('default_inputs.txt') as f:
+with open('default_inputs.txt', 'r') as f:
     default_inputs = [x.strip('\n') for x in f.readlines()]
 
 # 0. pi repo
@@ -16,37 +18,46 @@ with open('default_inputs.txt') as f:
 # 8. nb_port
 
 # determine and write updated pi and nb properties to file
-nb_repo = os.popen('git rev-parse --show-toplevel').read()
-nb_usr = os.popen('whoami').read()
-nb_nw_if = raw_input('Please enter your PC wireless network interface name: (found from ifconfig command) [Enter for default]') or default_inputs[6]
-nb_ip = ni.ifaddresses(nb_nw_if)[2][0]['addr']
-nb_port = pi_repo = ('Please enter your desired PC port for TCP communication: [Enter for default]') or default_inputs[8]
+cwd = os.getcwd()
 
-pi_repo = ('Please enter your full pi git repo directory: [Enter for default]') or default_inputs[0]
+pi_repo = raw_input('Please enter your full pi git repo directory: [Enter for default]') or default_inputs[0]
 pi_usr = 'pi'
-pi_ip = ('Please enter your pi ip address: (found at https://www.doc.ic.ac.uk/~jrj07/robotics/index.cgi via known MAC address) [Enter for default]')  or default_inputs[2]
-pi_port = ('Please enter your desired pi port for TCP communication: [Enter for default]') or default_inputs[3]
+pi_ip = raw_input('Please enter your pi ip address: (found at https://www.doc.ic.ac.uk/~jrj07/robotics/index.cgi via known MAC address) [Enter for default]')  or default_inputs[2]
+pi_port = raw_input('Please enter your desired pi port for TCP communication: [Enter for default]') or default_inputs[3]
 
-default_inputs[0] = pi_repo
-default_inputs[1] = pi_usr
-default_inputs[2] = pi_ip
-default_inputs[3] = pi_port
+nb_repo = os.popen('git rev-parse --show-toplevel').read().replace('\n','')
+nb_usr = os.popen('whoami').read().replace('\n','')
+nb_nw_if = raw_input('Please enter your PC wireless network interface name: (found from ifconfig command) [Enter for default]') or default_inputs[6]
+nb_ip = netifaces.ifaddresses(nb_nw_if)[2][0]['addr']
+nb_port = raw_input('Please enter your desired PC port for TCP communication: [Enter for default]') or default_inputs[8]
 
-default_inputs[4] = nb_repo
-default_inputs[5] = nb_usr
-default_inputs[6] = nb_nw_if
-default_inputs[7] = nb_ip
-default_inputs[8] = nb_port
+default_inputs[0] = pi_repo + '\n'
+default_inputs[1] = pi_usr  + '\n'
+default_inputs[2] = pi_ip  + '\n'
+default_inputs[3] = pi_port  + '\n'
 
-f.write(default_inputs)
+default_inputs[4] = nb_repo  + '\n'
+default_inputs[5] = nb_usr  + '\n'
+default_inputs[6] = nb_nw_if  + '\n'
+default_inputs[7] = nb_ip  + '\n'
+default_inputs[8] = nb_port  + '\n'
+
+f.close()
+
+with open('default_inputs.txt', 'w') as file:
+    file.writelines(default_inputs)
+f.close()
+
+print('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + '/default_inputs.txt')
 
 # scp updates over to pi default file
-os.system('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + 'default_inputs.txt')
+os.system('scp default_inputs.txt ' +  pi_usr + '@' + pi_ip + ':' + pi_repo + cwd.replace(nb_repo,"") + '/default_inputs.txt')
+print("b")
 print("start pi PID application now")
 print("updating default data on pi...")
 packet = 'scp performed'
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((pi_ip, pi_port))
+sock.connect((pi_ip, int(pi_port)))
 sock.sendall(packet)
 received = sock.recv(1024)
 sock.close()
