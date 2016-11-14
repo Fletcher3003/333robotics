@@ -104,4 +104,4 @@ while True:
     matplotlib.pyplot.clf()
     matplotlib.pyplot.plot(Data[:, 0], Data[:, 1], 'r')
     matplotlib.pyplot.plot(Data[:, 0], Data[:, 2], 'b')
-    matplotlib.pyplot.show()
+    matplotlib.pyplot.draw()
