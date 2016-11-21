@@ -38,10 +38,10 @@ def fwd():
 	interface.setMotorRotationSpeedReferences(motors,[speed, speed])
 
 def left():
-	interface.setMotorRotationSpeedReferences(motors,[speed, -speed])
+	interface.setMotorRotationSpeedReferences(motors,[speed/2, -speed/2])
 	
 def right():
-	interface.setMotorRotationSpeedReferences(motors,[-speed, speed])
+	interface.setMotorRotationSpeedReferences(motors,[-speed/2, speed/2])
 
 def back():
 	interface.setMotorRotationSpeedReferences(motors,[-speed, -speed])
@@ -49,7 +49,13 @@ def back():
 def stop():
 	interface.setMotorRotationSpeedReferences(motors,[0, 0])
 
-speed=200
+def acc():
+	speed = speed + 25
+
+def dec():
+	speed = speed - 25
+
+speed=100
 while True:
 	inp=str(raw_input())
 	#Move Robot
@@ -63,6 +69,10 @@ while True:
 		back()
 	elif inp=='x':
 		stop()
+	elif inp=='q':
+		dec()
+	elif inp=='e':
+		acc()
 	time.sleep(.01)
 
 
