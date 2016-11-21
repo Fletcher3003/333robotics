@@ -73,9 +73,9 @@ while True:
 	elif inp=='x':
 		stop()
 	elif inp=='q':
-		speed = dec()
+		speed = dec(speed)
 	elif inp=='e':
-		speed = acc()
+		speed = acc(speed)
 	time.sleep(.01)
 
 
