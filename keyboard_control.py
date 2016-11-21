@@ -38,10 +38,10 @@ def fwd():
 	interface.setMotorRotationSpeedReferences(motors,[speed, speed])
 
 def left():
-	interface.setMotorRotationSpeedReferences(motors,[speed/2, -speed/2])
+	interface.setMotorRotationSpeedReferences(motors,[-speed/2, speed/2])
 	
 def right():
-	interface.setMotorRotationSpeedReferences(motors,[-speed/2, speed/2])
+	interface.setMotorRotationSpeedReferences(motors,[speed/2, -speed/2])
 
 def back():
 	interface.setMotorRotationSpeedReferences(motors,[-speed, -speed])
