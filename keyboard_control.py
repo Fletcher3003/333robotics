@@ -33,6 +33,8 @@ interface.setMotorAngleControllerParameters(motors[1],motorParams)
 #	s-Move Back
 #	x-Stop
 
+speed=1
+
 # Movement Commands
 def fwd():
 	interface.setMotorRotationSpeedReferences(motors,[speed, speed])
@@ -57,7 +59,6 @@ def dec():
 	nspeed = speed - 1.0
 	speed = nspeed
 
-speed=1
 while True:
 	inp=str(raw_input())
 	#Move Robot
