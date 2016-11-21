@@ -17,11 +17,11 @@ motorParams.maxRotationAcceleration = params.maxRotationAcceleration
 motorParams.maxRotationSpeed = params.maxRotationSpeed
 motorParams.feedForwardGain = params.feedForwardGain
 motorParams.minPWM = params.minPWM
-motorParams.pidParameters.minOutput = params.pidParameters.minOutput
-motorParams.pidParameters.maxOutput = params.pidParameters.maxOutput
-motorParams.pidParameters.k_p = params.pidParameters.k_p
-motorParams.pidParameters.k_i = params.pidParameters.k_i
-motorParams.pidParameters.k_d = params.pidParameters.k_d
+motorParams.pidParameters.minOutput = params.minOutput
+motorParams.pidParameters.maxOutput = params.maxOutput
+motorParams.pidParameters.k_p = params.k_p
+motorParams.pidParameters.k_i = params.k_i
+motorParams.pidParameters.k_d = params.k_d
 
 interface.setMotorAngleControllerParameters(motors[0],motorParams)
 interface.setMotorAngleControllerParameters(motors[1],motorParams)
