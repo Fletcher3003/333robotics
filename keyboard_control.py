@@ -50,10 +50,12 @@ def stop():
 	interface.setMotorRotationSpeedReferences(motors,[0, 0])
 
 def acc():
-	speed = speed + 1
+	nspeed = speed + 1.0
+	speed = nspeed
 
 def dec():
-	speed = speed - 1
+	nspeed = speed - 1.0
+	speed = nspeed
 
 speed=1
 while True:
