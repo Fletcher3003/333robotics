@@ -50,12 +50,12 @@ def stop():
 	interface.setMotorRotationSpeedReferences(motors,[0, 0])
 
 def acc():
-	speed = speed + 25
+	speed = speed + 1
 
 def dec():
-	speed = speed - 25
+	speed = speed - 1
 
-speed=100
+speed=1
 while True:
 	inp=str(raw_input())
 	#Move Robot
