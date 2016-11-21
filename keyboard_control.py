@@ -51,13 +51,13 @@ def back():
 def stop():
 	interface.setMotorRotationSpeedReferences(motors,[0, 0])
 
-def acc():
+def acc(speed):
 	nspeed = speed + 1.0
-	speed = nspeed
+	return nspeed
 
-def dec():
+def dec(speed):
 	nspeed = speed - 1.0
-	speed = nspeed
+	return nspeed
 
 while True:
 	inp=str(raw_input())
@@ -73,9 +73,9 @@ while True:
 	elif inp=='x':
 		stop()
 	elif inp=='q':
-		dec()
+		speed = dec()
 	elif inp=='e':
-		acc()
+		speed = acc()
 	time.sleep(.01)
 
 
