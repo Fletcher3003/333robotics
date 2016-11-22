@@ -26,6 +26,9 @@ motorParams.pidParameters.k_d = params.k_d
 interface.setMotorAngleControllerParameters(motors[0],motorParams)
 interface.setMotorAngleControllerParameters(motors[1],motorParams)
 
+port = 1
+interface.sensorEnable(port, brickpi.SensorType.SENSOR_ULTRASONIC);
+
 #Commands:
 #	w-Move Forward
 #	a-Move Left
@@ -34,19 +37,22 @@ interface.setMotorAngleControllerParameters(motors[1],motorParams)
 #	x-Stop
 
 speed=1
+incr=10
 
 # Movement Commands
 def fwd():
-	interface.setMotorRotationSpeedReferences(motors,[speed, speed])
+	interface.increaseMotorAngleReferences(motors,[speed, speed])
 
 def left():
-	interface.setMotorRotationSpeedReferences(motors,[-speed/2, speed/2])
+	interface.setMotorRotationSpeedReferences(motors,[0, 0])
+	interface.increaseMotorAngleReferences(motors,[-incr,incr])
 	
 def right():
-	interface.setMotorRotationSpeedReferences(motors,[speed/2, -speed/2])
+	interface.setMotorRotationSpeedReferences(motors,[0, 0])
+	interface.increaseMotorAngleReferences(motors,[-incr,incr])
 
 def back():
-	interface.setMotorRotationSpeedReferences(motors,[-speed, -speed])
+	interface.increaseMotorAngleReferences(motors,[-speed, -speed])
 
 def stop():
 	interface.setMotorRotationSpeedReferences(motors,[0, 0])
@@ -58,6 +64,14 @@ def acc(speed):
 def dec(speed):
 	nspeed = speed - 1.0
 	return nspeed
+
+def sense():
+	usReading = interface.getSensorValue(port)
+
+	if usReading :
+		print usReading
+	else:
+		print "Failed US reading"
 
 while True:
 	inp=str(raw_input())
@@ -72,10 +86,14 @@ while True:
 		back()
 	elif inp=='x':
 		stop()
+	elif inp=='f':
+		sense()
 	elif inp=='q':
 		speed = dec(speed)
+		print speed
 	elif inp=='e':
 		speed = acc(speed)
+		print speed
 	time.sleep(.01)
 
 
