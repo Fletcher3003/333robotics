@@ -37,11 +37,11 @@ gain = 0.1;
 while True:
 	usReading = interface.getSensorValue(port)
 		
-	if (!usReading) :
+	if not usReading :
 		print "US Sensor not Detected"
 		interface.terminate()
 	else:
-		dis = usReading - desiredDistance
+		dis = usReading[0] - desiredDistance
 
 		speed = gain*dis
 		interface.setMotorRotationSpeedReferences(motors,[speed,speed])
