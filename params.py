@@ -7,5 +7,5 @@ minPWM = 18.0
 minOutput = -255
 maxOutput = 255
 k_p = 480.0
-k_i = 100.0
-k_d = 20
+k_i = 200.0
+k_d = 9.6

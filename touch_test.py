@@ -4,13 +4,13 @@ import time
 interface=brickpi.Interface()
 interface.initialize()
 
-left_port = 0 # port which left touch sensor is plugged into
+left_port = 3 # port which left touch sensor is plugged into
 right_port = 2 # port which right touch sensor is plugged into
 
 interface.sensorEnable(left_port, brickpi.SensorType.SENSOR_TOUCH);
 interface.sensorEnable(right_port, brickpi.SensorType.SENSOR_TOUCH);
 
-while True
+while True :
 	lReading = interface.getSensorValue(left_port)
 	rReading = interface.getSensorValue(right_port)
 
