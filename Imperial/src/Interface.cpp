@@ -1308,7 +1308,6 @@ int Interface::controlAndSensingLoop()
 bool Interface::updateSensorValues(bool getUltrasonic, timestamp_t timestamp)
 {
   boost::lock_guard<boost::mutex> l(sensMutex_);
-  BrickPiUpdateValues()
   for (int i = 0; i < 4; i++) {
     SensorType type = sensorTypes_[i];
     if(type!=SENSOR_ULTRASONIC || (type==SENSOR_ULTRASONIC && getUltrasonic)) {      
