@@ -6,6 +6,6 @@ minPWM = 18.0
 # Pid Params
 minOutput = -255
 maxOutput = 255
-k_p = 400.0
-k_i = 0.0
-k_d = 6.0
+k_p = 480.0
+k_i = 250.0
+k_d = 9.6
