@@ -37,7 +37,8 @@ interface.sensorEnable(port, brickpi.SensorType.SENSOR_ULTRASONIC);
 #	x-Stop
 
 speed=1
-incr=10
+incr=3.3
+
 
 # Movement Commands
 def fwd():
@@ -49,7 +50,7 @@ def left():
 	
 def right():
 	interface.setMotorRotationSpeedReferences(motors,[0, 0])
-	interface.increaseMotorAngleReferences(motors,[-incr,incr])
+	interface.increaseMotorAngleReferences(motors,[incr,-incr])
 
 def back():
 	interface.increaseMotorAngleReferences(motors,[-speed, -speed])
