@@ -31,13 +31,16 @@ port = 1
 interface.sensorEnable(port, brickpi.SensorType.SENSOR_ULTRASONIC);
 
 # Define a 22.5 degree rotation angle
-rot_angle=1.65
+rot_angle=1.3
 
+ds = []
 for i in range(0,16):
 	usReading = interface.getSensorValue(port)
-	ds[i]= usReading[0]
-	
+	ds.append(usReading[0])	
 	interface.increaseMotorAngleReferences(motors,[rot_angle,-rot_angle])
+	print 'Rotating'
+	while not interface.motorAngleReferencesReached(motors) :
+		time.sleep(0.01)
 
 print ds
 	

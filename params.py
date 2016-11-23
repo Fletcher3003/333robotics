@@ -1,7 +1,7 @@
 maxRotationAcceleration = 3.0
 maxRotationSpeed = 10.0
 feedForwardGain = 255/20.0
-minPWM = 18.0
+minPWM = 30.0
 
 # Pid Params
 minOutput = -255
