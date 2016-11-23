@@ -30,7 +30,7 @@ interface.setMotorAngleControllerParameters(motors[1],motorParams)
 global usPort = 1
 interface.sensorEnable(usPort, brickpi.SensorType.SENSOR_ULTRASONIC);
 
-global speed = 4.0
+global speed = 6.0
 global rot16 = 1.3
 global usOffset = 11
 
@@ -109,6 +109,9 @@ def explore
 	dir = list.index(empt)
 	
 	rotate(dir)
+	move(speed)	
+	move(speed)
+
 	print 'Displaying Map'
 	print map
 
